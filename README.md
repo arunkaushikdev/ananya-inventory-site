@@ -1,4 +1,4 @@
-# Inventory ERP website
+# Ananya Inventory website
 
 Static marketing site (Home, Features, About, Contact). No build step needed to serve it.
 

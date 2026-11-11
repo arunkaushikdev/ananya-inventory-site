@@ -49,7 +49,7 @@
       if (form.querySelector("[name=website]").value) return; // honeypot
       var data = new FormData(form);
       data.delete("website");
-      data.append("_subject", "Inventory ERP demo request: " + (data.get("business") || data.get("name")));
+      data.append("_subject", "Ananya Inventory demo request: " + (data.get("business") || data.get("name")));
       data.append("_template", "table");
       data.append("_captcha", "false");
       data.append("page", location.pathname);

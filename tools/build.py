@@ -2,7 +2,7 @@
 """Generates the static pages (index, features, about, contact, 404). Run: python3 tools/build.py"""
 import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-NAME = "Inventory ERP"
+NAME = "Ananya Inventory"
 
 def form(fid, compact=False):
     biz = ["Pharmacy / medical store", "Distributor / stockist", "Wholesale", "Retail shop", "Manufacturer", "Other"]
@@ -44,7 +44,7 @@ def page(fname, title, desc, body, extra_head=""):
 {extra_head}</head>
 <body>
 <header class="site-head"><div class="wrap">
-  <a class="brand" href="index.html"><span class="brand-mark">iE</span>{NAME}</a>
+  <a class="brand" href="index.html"><span class="brand-mark">A</span>{NAME}</a>
   <button class="menu-btn" aria-expanded="false" aria-controls="nav">Menu</button>
   <nav class="nav" id="nav" aria-label="Main">{nav}<a class="btn sm" href="contact.html" data-demo style="color:#fff;border-bottom:1.5px solid var(--ink)">Book a demo</a></nav>
 </div></header>
@@ -52,7 +52,7 @@ def page(fname, title, desc, body, extra_head=""):
 {body}
 </main>
 <footer class="site-foot"><div class="wrap">
-  <div><a class="brand" href="index.html"><span class="brand-mark">iE</span>{NAME}</a><p style="margin-top:12px;max-width:38ch">Stock, billing and GST software for Indian shops and distributors. Runs on your own computer.</p></div>
+  <div><a class="brand" href="index.html"><span class="brand-mark">A</span>{NAME}</a><p style="margin-top:12px;max-width:38ch">Stock aur GST, dono aasaan. Billing and stock software for Indian shops and distributors, on your own computer.</p></div>
   <div><h4>Product</h4><ul><li><a href="features.html">Features</a></li><li><a href="features.html#pharma">For pharmacies</a></li><li><a href="contact.html">Book a demo</a></li></ul></div>
   <div><h4>Company</h4><ul><li><a href="about.html">About us</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:arun.idevs@gmail.com">arun.idevs@gmail.com</a></li></ul></div>
   <div class="legal">&copy; 2026 {NAME}. All product names and trademarks belong to their owners.</div>
@@ -203,7 +203,7 @@ features = f'''<section class="hero" style="padding-bottom:40px"><div class="wra
   <div><h2>Missing something you need?</h2><p>Tell us in the demo form. If your shop needs a report or a flow we do not have, we want to know.</p></div>
   <a class="btn" href="contact.html" data-demo>Book a demo</a>
 </div></section>'''
-page("features.html", f"Features | {NAME}", "Billing, GST, batch and expiry, godowns, ledgers, reports and staff roles. See everything Inventory ERP does.", features)
+page("features.html", f"Features | {NAME}", "Billing, GST, batch and expiry, godowns, ledgers, reports and staff roles. See everything Ananya Inventory does.", features)
 
 # ---------------------------------------------------------------- about
 about = f'''<section class="hero" style="padding-bottom:32px"><div class="wrap" style="grid-template-columns:1fr"><div class="hero-copy">
@@ -228,7 +228,7 @@ about = f'''<section class="hero" style="padding-bottom:32px"><div class="wrap" 
   <div><h2>Let's talk about your shop</h2><p>Tell us what you sell and what you use today. We will show you the software on your kind of bills.</p></div>
   <a class="btn" href="contact.html" data-demo>Book a demo</a>
 </div></section>'''
-page("about.html", f"About us | {NAME}", "Inventory ERP is billing, stock and GST software built for Indian chemists, distributors and shops.", about)
+page("about.html", f"About us | {NAME}", "Ananya Inventory is billing, stock and GST software built for Indian chemists, distributors and shops.", about)
 
 # ---------------------------------------------------------------- contact
 contact = f'''<section class="sec" style="padding-top:clamp(40px,6vw,80px)"><div class="wrap contact-grid">
@@ -243,13 +243,13 @@ contact = f'''<section class="sec" style="padding-top:clamp(40px,6vw,80px)"><div
   </div>
   <div class="form-card">{form("contact")}</div>
 </div></section>'''
-page("contact.html", f"Contact | {NAME}", "Book a demo of Inventory ERP. Share your shop details and we will call you within one working day.", contact)
+page("contact.html", f"Contact | {NAME}", "Book a demo of Ananya Inventory. Share your shop details and we will call you within one working day.", contact)
 
 # ---------------------------------------------------------------- 404
 nf = '''<section class="sec"><div class="wrap" style="display:grid;gap:20px;justify-items:start"><h1>Page not found</h1><p class="lead">That address does not exist. Go back to the home page or see the features.</p><div class="hero-cta"><a class="btn green" href="index.html">Home</a><a class="btn ghost" href="features.html">Features</a></div></div></section>'''
 page("404.html", f"Page not found | {NAME}", "Page not found.", nf)
 
-(ROOT / "assets" / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#14213d"/><text x="16" y="21.5" font-family="Arial,sans-serif" font-weight="700" font-size="14" text-anchor="middle" fill="#fff">iE</text><circle cx="26" cy="26" r="3" fill="#5fd1a8"/></svg>')
+(ROOT / "assets" / "favicon.svg").write_text('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#14213d"/><text x="16" y="21.5" font-family="Arial,sans-serif" font-weight="700" font-size="14" text-anchor="middle" fill="#fff">A</text><circle cx="26" cy="26" r="3" fill="#5fd1a8"/></svg>')
 (ROOT / "robots.txt").write_text("User-agent: *\nAllow: /\n")
 (ROOT / ".nojekyll").write_text("")
 print("built")
