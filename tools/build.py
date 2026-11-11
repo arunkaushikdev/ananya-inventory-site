@@ -57,10 +57,10 @@ def page(fname, title, desc, body, extra_head=""):
   <div><h4>Company</h4><ul><li><a href="about.html">About us</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:arun.idevs@gmail.com">arun.idevs@gmail.com</a></li></ul></div>
   <div class="legal">&copy; 2026 {NAME}. All product names and trademarks belong to their owners.</div>
 </div></footer>
-<dialog id="demo-dialog" aria-labelledby="dlg-title"><div class="dlg-in">
-  <div class="dlg-top"><div><h2 id="dlg-title" style="font-size:30px">Book a demo</h2><p class="lead" style="font-size:16px;margin-top:8px">Tell us about your shop. We will show you the software on your kind of business.</p></div><button class="close" aria-label="Close" type="button">&times;</button></div>
-  {form("demo")}
-</div></dialog>
+<dialog id="demo-dialog" aria-labelledby="dlg-title">
+  <div class="dlg-top"><div><h2 id="dlg-title">Book a demo</h2><p>Tell us about your shop. We will show you the software on your kind of business.</p></div><button class="close" aria-label="Close" type="button">&times;</button></div>
+  <div class="dlg-body">{form("demo")}</div>
+</dialog>
 <script src="assets/site.js" defer></script>
 </body>
 </html>'''
