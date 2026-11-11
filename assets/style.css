@@ -191,9 +191,29 @@ dialog .close:hover { background: var(--paper-2); }
 dialog .field textarea { min-height: 84px; }
 @media (max-width: 720px) { dialog .dlg-top, dialog .dlg-body { padding-left: 18px; padding-right: 18px; } }
 
+/* legal pages */
+.sec.plain { background-image: none; background: var(--paper); }
+.legal-head { display: grid; gap: 10px; margin-bottom: 40px; }
+.legal-grid { display: grid; grid-template-columns: 240px minmax(0, 1fr); gap: clamp(32px, 6vw, 80px); align-items: start; }
+.legal-toc { position: sticky; top: 88px; font-size: 14.5px; }
+.legal-toc b { display: block; margin-bottom: 10px; }
+.legal-toc ol { margin: 0; padding: 0; list-style: none; border-left: 1.5px solid var(--rule); }
+.legal-toc a { display: block; padding: 5px 0 5px 14px; color: var(--ink-2); text-decoration: none; margin-left: -1.5px; border-left: 1.5px solid transparent; }
+.legal-toc a:hover { color: var(--ink); border-left-color: var(--green); }
+.legal-body { max-width: 70ch; }
+.legal-body section { padding: 0 0 32px; margin-bottom: 32px; border-bottom: 1px solid var(--rule); scroll-margin-top: 88px; }
+.legal-body section:last-child { border-bottom: 0; }
+.legal-body h2 { font-size: 24px; letter-spacing: -.015em; margin-bottom: 14px; }
+.legal-body p, .legal-body li { color: var(--ink-2); font-size: 16.5px; line-height: 1.7; }
+.legal-body p + p, .legal-body p + ul, .legal-body ul + p { margin-top: 12px; }
+.legal-body ul { padding-left: 20px; display: grid; gap: 8px; margin: 0; }
+.legal-body strong { color: var(--ink); }
+.legal-body a { color: var(--green-ink); text-underline-offset: 3px; }
+.legal a { color: inherit; text-underline-offset: 3px; }
+
 /* footer */
 .site-foot { border-top: 1px solid var(--rule); padding: 48px 0 36px; background: var(--card); }
-.site-foot .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 32px; }
+.site-foot .wrap { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 32px; }
 .site-foot p, .site-foot a { color: var(--ink-2); font-size: 15px; }
 .site-foot ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; }
 .site-foot h4 { margin: 0; font-size: 15px; }
@@ -210,6 +230,8 @@ dialog .field textarea { min-height: 84px; }
   .proof div:nth-child(n+3) { border-top: 1px solid var(--rule); }
   .facts { grid-template-columns: 1fr; }
   .site-foot .wrap { grid-template-columns: 1fr 1fr; }
+  .legal-grid { grid-template-columns: 1fr; }
+  .legal-toc { position: static; }
 }
 @media (max-width: 720px) {
   .menu-btn { display: block; }

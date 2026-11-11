@@ -55,7 +55,8 @@ def page(fname, title, desc, body, extra_head=""):
   <div><a class="brand" href="index.html"><span class="brand-mark">A</span>{NAME}</a><p style="margin-top:12px;max-width:38ch">Stock aur GST, dono aasaan. Billing and stock software for Indian shops and distributors, on your own computer.</p></div>
   <div><h4>Product</h4><ul><li><a href="features.html">Features</a></li><li><a href="features.html#pharma">For pharmacies</a></li><li><a href="contact.html">Book a demo</a></li></ul></div>
   <div><h4>Company</h4><ul><li><a href="about.html">About us</a></li><li><a href="contact.html">Contact</a></li><li><a href="mailto:arun.idevs@gmail.com">arun.idevs@gmail.com</a></li></ul></div>
-  <div class="legal">&copy; 2026 {NAME}. All product names and trademarks belong to their owners.</div>
+  <div><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="terms.html#refunds">Refunds and cancellation</a></li></ul></div>
+  <div class="legal">&copy; 2026 {NAME}, a product of Arun Datt Kaushik. All product names and trademarks belong to their owners. <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></div>
 </div></footer>
 <dialog id="demo-dialog" aria-labelledby="dlg-title">
   <div class="dlg-top"><div><h2 id="dlg-title">Book a demo</h2><p>Tell us about your shop. We will show you the software on your kind of business.</p></div><button class="close" aria-label="Close" type="button">&times;</button></div>
@@ -244,6 +245,84 @@ contact = f'''<section class="sec" style="padding-top:clamp(40px,6vw,80px)"><div
   <div class="form-card">{form("contact")}</div>
 </div></section>'''
 page("contact.html", f"Contact | {NAME}", "Book a demo of Ananya Inventory. Share your shop details and we will call you within one working day.", contact)
+
+
+# ---------------------------------------------------------------- legal pages
+def legal(fname, title, desc, heading, updated, sections):
+    toc = "".join(f'<li><a href="#{i}">{t}</a></li>' for i, t, _ in sections)
+    body = "".join(f'<section id="{i}"><h2>{t}</h2>{b}</section>' for i, t, b in sections)
+    html = f"""<section class="sec plain" style="padding-top:clamp(40px,6vw,80px)"><div class="wrap">
+  <div class="legal-head"><h1 style="font-size:clamp(36px,5vw,56px)">{heading}</h1><p class="lead" style="font-size:16px">Last updated {updated}</p></div>
+  <div class="legal-grid">
+    <nav class="legal-toc" aria-label="On this page"><b>On this page</b><ol>{toc}</ol></nav>
+    <article class="legal-body">{body}</article>
+  </div>
+</div></section>"""
+    page(fname, title, desc, html)
+
+UPDATED = "11 November 2026"
+PRIVACY = [
+ ("who", "Who we are", """<p>{NAME} is billing, stock and GST software for Windows, made by Arun Datt Kaushik ("we", "us"). This policy covers the {NAME} desktop app, this website, and the licence service that activates the app.</p>
+ <p>Questions or requests about your data: <a href="mailto:arun.idevs@gmail.com">arun.idevs@gmail.com</a>.</p>"""),
+ ("short", "The short version", """<ul>
+ <li>Your business data (items, parties, bills, ledgers, reports) is stored <strong>on your own computer</strong>. We do not receive it, and we cannot read it.</li>
+ <li>The app talks to our licence service only to check your trial or licence. It sends a device identifier, not your business data.</li>
+ <li>If you fill a form on this website, we receive what you type, and we use it to contact you about {NAME}.</li>
+ <li>We do not sell personal data and we do not run advertising or tracking cookies.</li></ul>"""),
+ ("app", "Data in the desktop app", """<p>Everything you enter in {NAME} is saved in a database on your computer: company details, items and stock, parties and ledgers, sale and purchase bills, GSTIN, PAN, licence numbers, staff users, and reports. This stays on that computer.</p>
+ <ul><li><strong>Backups.</strong> Backups go to the folder you choose. We do not upload them anywhere.</li>
+ <li><strong>Several computers in one shop.</strong> If you use the Main PC and other PCs option, data moves only between computers on your own network.</li>
+ <li><strong>Staff PINs.</strong> PINs are kept on your computer. We cannot recover a forgotten PIN for you.</li>
+ <li><strong>Printing, import and export.</strong> Files you create or import stay where you save them.</li></ul>
+ <p>Because we do not hold your business data, you are responsible for keeping your computer and backups safe. See the <a href="terms.html#your-data">Terms of Use</a>.</p>"""),
+ ("licence", "Licence and trial checks", """<p>To run a free trial or a paid licence, the app contacts our licence service. This is the only information the app sends to us:</p>
+ <ul><li>your activation code or licence key, when you activate or renew;</li>
+ <li>a device identifier. It is a one-way hash made from your computer, so it cannot be turned back into your hardware details;</li>
+ <li>your computer name, as shown in the app, so you can recognise a device when you manage your licence;</li>
+ <li>the app version, and the date your trial started.</li></ul>
+ <p>We use this to limit a licence to the number of computers you bought, to apply trial days, and to tell you when a licence expires. We do not receive bills, parties, items, or any figures from your business.</p>
+ <p>The app can also be activated offline with a code, without contacting our service.</p>"""),
+ ("buying", "Buying a licence", """<p>When you buy or renew online, you pay on the payment page of our payment partner, Razorpay. Razorpay collects and processes your card, UPI or net banking details under its own privacy policy. We never see or store your full card number, UPI PIN or bank password.</p>
+ <p>We receive your name, email address, phone number, the plan and amount, and the payment reference. We keep these to issue your licence key, send you a receipt, handle renewals and support, and meet tax and accounting rules. We may email you the licence key.</p>"""),
+ ("website", "This website", """<ul><li><strong>Forms.</strong> When you book a demo or contact us, we receive the details you enter: name, shop or company, mobile number, email, city, business type, the software you use today, and your message. The form is delivered to us as email through FormSubmit, a form-handling service. We use the details only to reply to you, arrange a demo, and follow up about {NAME}.</li>
+ <li><strong>Fonts.</strong> Pages load a font from Google Fonts. Google receives your IP address and browser details when it serves the font.</li>
+ <li><strong>Hosting.</strong> The site is hosted on GitHub Pages. GitHub may keep standard server logs such as IP addresses.</li>
+ <li><strong>Cookies and analytics.</strong> The site does not set cookies and does not use analytics or advertising trackers.</li></ul>"""),
+ ("use", "Why we use data, and our legal basis", """<p>We use personal data to provide and secure the software and licence, reply to your enquiries, process payments and issue invoices, keep records the law requires, and improve the product based on what you tell us. We process it because you gave it to us for these purposes, to carry out a purchase you asked for, or because the law requires it, in line with the Digital Personal Data Protection Act, 2023 and other Indian law that applies.</p>"""),
+ ("share", "Who we share data with", """<p>We share personal data only with the services that help us run {NAME}: Razorpay for payments, our email service for sending receipts and licence emails, the form service named above, and our hosting providers. They may process data only to provide their service. We may also disclose data if a court or authority lawfully requires it. We do not sell personal data.</p>"""),
+ ("keep", "How long we keep it", """<p>Enquiry details: until your request is handled, and up to 24 months after if you may still become a customer. Licence and payment records: as long as the licence exists and for the period tax and accounting law requires. After that we delete or anonymise them. Data on your own computer stays until you delete it.</p>"""),
+ ("security", "Security", """<p>The licence service uses encrypted connections. Licences are signed so they cannot be edited, and our signing keys are not part of the app. No system is perfectly secure, so we cannot promise absolute security, but we work to protect the data we hold.</p>"""),
+ ("rights", "Your rights and choices", """<p>You can ask us to tell you what personal data we hold about you, correct it, or delete it, and you can withdraw consent for things like follow-up emails at any time. Write to <a href="mailto:arun.idevs@gmail.com">arun.idevs@gmail.com</a> from the email address you used. We aim to reply within 30 days. If you are not satisfied with our answer, you may complain to the Data Protection Board of India once it is operational.</p>
+ <p>To remove a computer from your licence, use Settings &rarr; Licence in the app, or write to us.</p>"""),
+ ("children", "Children", """<p>{NAME} is business software and is not meant for children. We do not knowingly collect personal data from anyone under 18.</p>"""),
+ ("changes", "Changes to this policy", """<p>If we change this policy, we will update the date at the top. If a change is significant, we will also tell customers by email or inside the app.</p>"""),
+ ("grievance", "Grievance contact", """<p>Arun Datt Kaushik, {NAME}<br>Email: <a href="mailto:arun.idevs@gmail.com">arun.idevs@gmail.com</a></p>"""),
+]
+legal("privacy.html", f"Privacy Policy | {NAME}", "What {NAME} collects, what stays on your computer, and how your rights work.".replace("{NAME}", NAME), "Privacy Policy", UPDATED, [(i, t, b.replace("{NAME}", NAME)) for i, t, b in PRIVACY])
+
+TERMS = [
+ ("agree", "Using these terms", """<p>These terms are an agreement between you and Arun Datt Kaushik, who offers {NAME} ("we", "us"). By installing or using the app, the licence service, or this website, you accept them. If you use {NAME} for a company, you confirm you can accept these terms for that company.</p>"""),
+ ("what", "What {NAME} is", """<p>{NAME} is desktop software for stock, billing, GST and accounts. It helps you prepare bills, records and reports. It is a tool: you decide what to enter and what to file.</p>"""),
+ ("licence", "Your licence", """<p>We grant you a non-exclusive, non-transferable right to use the app on the number of computers your plan allows, for your own business, for the licence period you paid for, or during the free trial. You may not copy, resell, rent, reverse-engineer, or remove licence checks from the app, or share a licence key with people outside your business.</p>
+ <p>A licence can be moved to another computer by removing the old one in the app or by asking us. A licence can be switched off if it is used against these terms, shared beyond its limit, or paid for by a payment that is reversed.</p>"""),
+ ("trial", "Free trial", """<p>The trial lets you use the app before buying. Trial days are counted from the first start on a computer, and the licence service keeps the earliest start date it sees. When the trial ends, you will need a licence to keep creating records. Your data stays on your computer and you can still back it up.</p>"""),
+ ("your-data", "Your data and your responsibility", """<p>Your business data belongs to you and is stored on your computer. We cannot see it, recover it, or restore it. You are responsible for:</p>
+ <ul><li>taking regular backups and keeping them in a safe place;</li><li>keeping your computer, Windows account, and staff PINs secure;</li><li>the accuracy of what you enter, including GST rates, HSN codes, party details and stock;</li><li>checking bills, reports and returns before you print, share, or file them, and following the tax, drug and other laws that apply to your business.</li></ul>
+ <p>Features that flag schedule drugs, expiry, credit limits or tax mismatches are aids. They do not replace your own compliance duties.</p>"""),
+ ("payments", "Fees and payments", """<p>Fees are shown in rupees on the buy page for each plan and period, and may change for future purchases. Prices on the page at the time you pay apply to that purchase. Payments are handled by Razorpay. Taxes, including GST, are added where applicable. Renewals and upgrades extend your licence from its current end date.</p>"""),
+ ("refunds", "Refunds and cancellation", """<p>You can try {NAME} free during the trial before you pay. Because the software is delivered digitally and a licence key is issued immediately, licence fees are <strong>not refundable</strong> once the key has been issued, except in these cases:</p>
+ <ul><li>you were charged twice for the same purchase, or charged an amount different from the price shown. We refund the extra amount;</li><li>payment was taken but no licence key was issued and we cannot fix it within 7 days;</li><li>a refund is required by law.</li></ul>
+ <p>To ask for a refund, write to <a href="mailto:arun.idevs@gmail.com">arun.idevs@gmail.com</a> within 7 days with your payment reference. Approved refunds go back to the original payment method and usually reach you within 5 to 10 working days, depending on your bank. Plans do not renew by themselves. You choose when to renew, so there is nothing to cancel. You can stop using {NAME} at any time.</p>"""),
+ ("support", "Support and updates", """<p>We provide support by email and by the phone number you give us when you book a demo or buy. We may release updates that fix issues or add features. Some updates may be needed to keep the licence service working.</p>"""),
+ ("ip", "Ownership", """<p>We own {NAME}, its design, and its code. You own your business data. Product names and trademarks of other companies belong to their owners, and we use them only to say what we work with.</p>"""),
+ ("warranty", "No guarantee, and limit of liability", """<p>We work to make {NAME} accurate and reliable, but the software is provided "as is". We do not promise it will be error-free or always available, or that it fits every business's needs. To the extent the law allows, we are not liable for indirect or consequential loss, lost profits, lost data, penalties, or tax or legal consequences that result from using the software. Our total liability for any claim is limited to the fees you paid us for the licence in the 12 months before the claim.</p>
+ <p>Nothing here limits liability that cannot be limited by law.</p>"""),
+ ("ending", "Ending these terms", """<p>You can stop using {NAME} whenever you like. We may end or suspend a licence if you break these terms. After a licence ends, your data stays on your computer, and you can still open backups with a valid licence or trial.</p>"""),
+ ("law", "Governing law", """<p>These terms follow the laws of India. Disputes will be handled by the courts that have jurisdiction in India. We would like to hear about a problem first, so please write to us and we will try to resolve it.</p>"""),
+ ("changes", "Changes", """<p>We may update these terms. The date above shows the latest version. Using {NAME} after a change means you accept the updated terms.</p>"""),
+ ("contact", "Contact", """<p>Arun Datt Kaushik, {NAME}<br>Email: <a href="mailto:arun.idevs@gmail.com">arun.idevs@gmail.com</a></p>"""),
+]
+legal("terms.html", f"Terms of Use | {NAME}", "Terms for using Ananya Inventory: licence, trial, your data, payments, refunds and support.", "Terms of Use", UPDATED, [(i, t.replace("{NAME}", NAME), b.replace("{NAME}", NAME)) for i, t, b in TERMS])
 
 # ---------------------------------------------------------------- 404
 nf = '''<section class="sec"><div class="wrap" style="display:grid;gap:20px;justify-items:start"><h1>Page not found</h1><p class="lead">That address does not exist. Go back to the home page or see the features.</p><div class="hero-cta"><a class="btn green" href="index.html">Home</a><a class="btn ghost" href="features.html">Features</a></div></div></section>'''
