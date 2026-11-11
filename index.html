@@ -26,7 +26,7 @@
     <div class="hero-cta"><a class="btn green" href="contact.html" data-demo>Book a demo</a><a class="btn ghost" href="features.html">See all features</a></div>
     <p class="hero-note">Works without internet. Your data never leaves your shop.</p>
   </div>
-  <div class="bill" aria-label="Sample GST tax invoice">
+  <div class="bill-wrap"><div class="bill" aria-label="Sample GST tax invoice">
   <div class="bill-top"><div><strong>Sharma Medical Store</strong><span>Tax Invoice SALE-00418 &middot; 11 Nov 2026</span></div><span class="bill-tag">Local sale &middot; GST 12%</span></div>
   <table><thead><tr><th>Item</th><th>Batch / Exp</th><th class="r">Qty</th><th class="r">Amount</th></tr></thead><tbody>
     <tr style="--i:0"><td>Paracetamol 500mg<span class="sub">HSN 3004</span></td><td>B2291 &middot; 08/27</td><td class="r num">10</td><td class="r num">&#8377;312.00</td></tr>
@@ -41,6 +41,10 @@
   </div>
   <div class="stamp" aria-hidden="true">SAVED</div>
 </div>
+    <div class="bill-tabs" role="group" aria-label="Sample bills">
+      <button type="button" class="on" aria-selected="true">Pharmacy</button><button type="button" aria-selected="false">Retail</button><button type="button" aria-selected="false">Distributor</button>
+    </div>
+  </div>
 </div></section>
 
 <section class="proof"><div class="wrap">
@@ -89,6 +93,7 @@
 <section class="sec"><div class="wrap split">
   <div class="panel" aria-label="Ledger example">
     <div class="panel-head"><span>Ledger: Gupta Medical Hall</span><span class="pill info">Credit limit &#8377;50,000</span></div>
+    <div class="credit"><div class="credit-row"><span>Credit used</span><b class="num"><span class="credit-used">&#8377;16,370</span> of &#8377;50,000</b></div><div class="credit-bar"><i></i></div></div>
     <table><thead><tr><th>Bill</th><th>Date</th><th class="r">Days</th><th class="r">Balance</th></tr></thead><tbody>
       <tr><td>SALE-00377</td><td class="num">14 Oct</td><td class="r num">28</td><td class="r num">&#8377;8,420 Dr</td></tr>
       <tr><td>SALE-00402</td><td class="num">02 Nov</td><td class="r num">9</td><td class="r num">&#8377;12,950 Dr</td></tr>
@@ -136,6 +141,7 @@
   <div><h4>Legal</h4><ul><li><a href="privacy.html">Privacy Policy</a></li><li><a href="terms.html">Terms of Use</a></li><li><a href="terms.html#refunds">Refunds and cancellation</a></li></ul></div>
   <div class="legal">&copy; 2026 Ananya Inventory, a product of Arun Datt Kaushik. All product names and trademarks belong to their owners. <a href="privacy.html">Privacy</a> &middot; <a href="terms.html">Terms</a></div>
 </div></footer>
+<div class="m-cta"><a class="btn green" href="contact.html" data-demo>Book a demo</a></div>
 <dialog id="demo-dialog" aria-labelledby="dlg-title">
   <div class="dlg-top"><div><h2 id="dlg-title">Book a demo</h2><p>Tell us about your shop. We will show you the software on your kind of business.</p></div><button class="close" aria-label="Close" type="button">&times;</button></div>
   <div class="dlg-body"><form data-lead novalidate id="demo">
@@ -155,5 +161,6 @@
 </form></div>
 </dialog>
 <script src="assets/site.js" defer></script>
+<script src="assets/motion.js" defer></script>
 </body>
 </html>

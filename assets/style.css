@@ -191,6 +191,46 @@ dialog .close:hover { background: var(--paper-2); }
 dialog .field textarea { min-height: 84px; }
 @media (max-width: 720px) { dialog .dlg-top, dialog .dlg-body { padding-left: 18px; padding-right: 18px; } }
 
+/* ---- motion ---- */
+.site-head { transition: box-shadow .25s; }
+.site-head.scrolled { box-shadow: 0 6px 24px rgba(20,33,61,.08); }
+.js .hero-copy > * { opacity: 0; animation: rowin .7s cubic-bezier(.2,.7,.2,1) forwards; }
+.js .hero-copy > :nth-child(1) { animation-delay: .05s; } .js .hero-copy > :nth-child(2) { animation-delay: .18s; }
+.js .hero-copy > :nth-child(3) { animation-delay: .3s; } .js .hero-copy > :nth-child(4) { animation-delay: .42s; }
+.bill-wrap { display: grid; gap: 18px; }
+.bill { transition: transform .25s ease-out; will-change: transform; }
+.bill-tabs { display: flex; gap: 8px; justify-content: flex-start; flex-wrap: wrap; }
+.bill-tabs button { font: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; min-height: 40px; border-radius: 99px; border: 1.5px solid var(--rule); background: var(--card); color: var(--ink-2); cursor: pointer; position: relative; overflow: hidden; transition: color .2s, border-color .2s, background .2s; }
+.bill-tabs button:hover { border-color: var(--ink-2); color: var(--ink); }
+.bill-tabs button.on { border-color: var(--ink); color: var(--ink); background: var(--green-soft); }
+.bill-tabs button.on::after { content: ""; position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--green); transform-origin: left; animation: tabfill 7.2s linear forwards; }
+@keyframes tabfill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); transition-delay: var(--d, 0ms); }
+.reveal.in { opacity: 1; transform: none; }
+.btn { position: relative; overflow: hidden; }
+.btn.green { background-image: linear-gradient(110deg, transparent 35%, rgba(255,255,255,.22) 50%, transparent 65%); background-size: 250% 100%; background-position: 160% 0; transition: background-position .6s, background-color .15s, transform .15s; }
+.btn.green:hover { background-position: -60% 0; }
+.row { transition: background .25s; position: relative; }
+.row::before { content: ""; position: absolute; left: 0; top: -1px; height: 2px; width: 0; background: var(--green); transition: width .45s ease; }
+.row:hover::before { width: 100%; }
+.seg { transition: background .25s; } .seg:hover { background: var(--paper); }
+.panel tbody tr { transition: background .25s; }
+.panel tbody tr.sel td { background: var(--green-soft); }
+.panel.done tbody tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--green); }
+.credit { padding: 12px 16px 14px; border-bottom: 1px solid var(--rule); display: grid; gap: 8px; }
+.credit-row { display: flex; justify-content: space-between; font-size: 13.5px; color: var(--ink-2); }
+.credit-row b { color: var(--ink); font-weight: 650; }
+.credit-bar { height: 8px; background: var(--paper-2); border-radius: 99px; overflow: hidden; }
+.credit-bar i { display: block; height: 100%; width: 0; background: var(--green); border-radius: 99px; transition: width 1.3s cubic-bezier(.2,.7,.2,1); }
+.credit.go .credit-bar i { width: 33%; }
+.kbd-line span { transition: color .2s, transform .2s; }
+.kbd-line span kbd { transition: transform .12s, border-bottom-width .12s, background .2s; }
+.kbd-line span.on { color: var(--ink); }
+.kbd-line span.on kbd { transform: translateY(2px); border-bottom-width: 1px; background: var(--green-soft); }
+.nav a:not(.btn) { background: linear-gradient(var(--green), var(--green)) left bottom / 0 2px no-repeat; transition: background-size .25s, color .2s; border-bottom: 0; padding-bottom: 8px; }
+.nav a:not(.btn):hover, .nav a[aria-current="page"] { background-size: 100% 2px; }
+.m-cta { display: none; }
+
 /* legal pages */
 .sec.plain { background-image: none; background: var(--paper); }
 .legal-head { display: grid; gap: 10px; margin-bottom: 40px; }
@@ -234,7 +274,16 @@ dialog .field textarea { min-height: 84px; }
   .legal-toc { position: static; }
 }
 @media (max-width: 720px) {
-  .menu-btn { display: block; }
+  .m-cta { display: block; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); background: rgba(242,245,243,.94); backdrop-filter: blur(8px); border-top: 1px solid var(--rule); transform: translateY(110%); transition: transform .3s ease; }
+  .m-cta.show { transform: none; }
+  .m-cta .btn { width: 100%; min-height: 48px; }
+  .site-foot { padding-bottom: 88px; }
+  .btn { min-height: 46px; }
+  .hero-cta .btn { flex: 1 1 100%; }
+  .bill-tabs button { flex: 1; text-align: center; padding-inline: 8px; }
+  .nav a:not(.btn) { padding: 14px 0; }
+  .nav.open { animation: rowin .25s ease; }
+  .menu-btn { display: block; min-height: 44px; }
   .nav { position: absolute; top: 64px; left: 0; right: 0; background: var(--paper); border-bottom: 1px solid var(--rule); padding: 12px 20px 20px; flex-direction: column; align-items: stretch; gap: 4px; display: none; }
   .nav.open { display: flex; }
   .nav a { padding: 12px 0; font-size: 17px; }
@@ -245,6 +294,9 @@ dialog .field textarea { min-height: 84px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .bill tbody tr, .js .bill-foot > *, .stamp { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .js .bill tbody tr, .js .bill-foot > *, .stamp, .js .hero-copy > * { opacity: 1 !important; transform: none !important; animation: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .bill-tabs button.on::after { animation: none; transform: none; }
+  .credit-bar i { transition: none; width: 33%; }
   .stamp { transform: rotate(-9deg) !important; opacity: .85 !important; }
 }

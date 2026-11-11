@@ -9,9 +9,7 @@
     btn.setAttribute("aria-expanded", open);
   });
 
-  // hero bill plays once
-  var bill = document.querySelector(".bill");
-  if (bill) requestAnimationFrame(function () { bill.classList.add("run"); });
+  // (hero bill animation lives in motion.js)
 
   // demo dialog
   var dlg = document.getElementById("demo-dialog");
