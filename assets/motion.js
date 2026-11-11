@@ -31,26 +31,42 @@
     { tab: "Retail", shop: "Verma General Store", no: "SALE-02107", tag: "Local sale · GST 5%", rate: 5, kind: "local", col: "Pack",
       rows: [["Basmati Rice", "HSN 1006", "5 kg", 2, 640], ["Sunflower Oil", "HSN 1512", "1 L", 6, 930], ["Tea Leaf", "HSN 0902", "500 g", 3, 540], ["Sugar", "HSN 1701", "1 kg", 10, 440]] },
     { tab: "Distributor", shop: "Mehta Electricals, Kanpur", no: "SALE-00093", tag: "Central sale · IGST 18%", rate: 18, kind: "central", col: "Pack",
-      rows: [["LED Bulb 9W", "HSN 8539", "Box of 10", 120, 9600], ["Extension Board 4-way", "HSN 8536", "Each", 40, 7200], ["Switch 6A", "HSN 8536", "Box of 20", 200, 5000]] }
+      rows: [["LED Bulb 9W", "HSN 8539", "Box of 10", 120, 9600], ["Extension Board 4-way", "HSN 8536", "Each", 40, 7200], ["Switch 6A", "HSN 8536", "Box of 20", 200, 5000], ["MCB 16A", "HSN 8536", "Box of 6", 30, 4800]] }
   ];
   var bill = $(".bill"), wrap = $(".bill-wrap"), tabs = $$(".bill-tabs button"), cur = 0, timer = null, auto = true;
 
-  function renderBill(i, animate) {
-    var b = bills[i]; cur = i;
+  function fill(el, i) {
+    var b = bills[i];
     var taxable = b.rows.reduce(function (a, r) { return a + r[4]; }, 0);
     var tax = taxable * b.rate / 100, total = Math.round(taxable + tax);
-    $(".bill-top strong", bill).textContent = b.shop;
-    $(".bill-top > div > span", bill).textContent = "Tax Invoice " + b.no + " · 11 Nov 2026";
-    $(".bill-tag", bill).textContent = b.tag;
-    $("thead th:nth-child(2)", bill).textContent = b.col;
-    $("tbody", bill).innerHTML = b.rows.map(function (r, k) {
-      return "<tr style='--i:" + k + "'><td>" + r[0] + "<span class='sub'>" + r[1] + "</span></td><td>" + r[2] + "</td><td class='r num'>" + r[3] + "</td><td class='r num'>₹" + inr(r[4]) + "</td></tr>";
+    $(".bill-top strong", el).textContent = b.shop;
+    $(".bill-top > div > span", el).textContent = "Tax Invoice " + b.no + " \u00b7 11 Nov 2026";
+    $(".bill-tag", el).textContent = b.tag;
+    $("thead th:nth-child(2)", el).textContent = b.col;
+    $("tbody", el).innerHTML = b.rows.map(function (r, k) {
+      return "<tr style='--i:" + k + "'><td>" + r[0] + "<span class='sub'>" + r[1] + "</span></td><td>" + r[2] + "</td><td class='r num'>" + r[3] + "</td><td class='r num'>\u20b9" + inr(r[4]) + "</td></tr>";
     }).join("");
     var taxLabel = b.kind === "central" ? "IGST " + b.rate + "%" : "SGST " + b.rate / 2 + "% + CGST " + b.rate / 2 + "%";
-    $(".bill-foot", bill).innerHTML =
-      "<div style='--j:0'><span>Taxable value</span><span class='num'>₹" + inr(taxable) + "</span></div>" +
-      "<div style='--j:1'><span>" + taxLabel + "</span><span class='num'>₹" + inr(tax) + "</span></div>" +
-      "<div class='total' style='--j:2'><span>Invoice total</span><span class='num' data-total='" + total + "'>₹" + inr(total) + "</span></div>";
+    $(".bill-foot", el).innerHTML =
+      "<div style='--j:0'><span>Taxable value</span><span class='num'>\u20b9" + inr(taxable) + "</span></div>" +
+      "<div style='--j:1'><span>" + taxLabel + "</span><span class='num'>\u20b9" + inr(tax) + "</span></div>" +
+      "<div class='total' style='--j:2'><span>Invoice total</span><span class='num' data-total='" + total + "'>\u20b9" + inr(total) + "</span></div>";
+    return total;
+  }
+  // Every sample bill gets the height of the tallest one, so the page never jumps when the bill changes.
+  function equalize() {
+    if (!bill) return;
+    var clone = bill.cloneNode(true);
+    clone.style.cssText = "position:absolute;visibility:hidden;left:-9999px;top:0;transform:none;min-height:0;width:" + bill.offsetWidth + "px";
+    document.body.appendChild(clone);
+    var max = 0;
+    bills.forEach(function (_, i) { fill(clone, i); max = Math.max(max, clone.offsetHeight); });
+    document.body.removeChild(clone);
+    bill.style.minHeight = max + "px";
+  }
+  function renderBill(i, animate) {
+    var b = bills[i]; cur = i;
+    var total = fill(bill, i);
     tabs.forEach(function (t, k) { t.setAttribute("aria-selected", k === i); t.classList.toggle("on", k === i); });
     bill.style.setProperty("--n", b.rows.length);
     bill.classList.remove("run"); void bill.offsetWidth; bill.classList.add("run");
@@ -63,7 +79,9 @@
   function stop() { if (timer) clearInterval(timer); timer = null; }
 
   if (bill && wrap) {
-    renderBill(0, true);
+    equalize(); renderBill(0, true);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { equalize(); });
+    var rt; window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(equalize, 150); });
     tabs.forEach(function (t, k) { t.addEventListener("click", function () { auto = false; stop(); renderBill(k, true); }); });
     play();
     document.addEventListener("visibilitychange", function () { document.hidden ? stop() : play(); });

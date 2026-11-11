@@ -199,6 +199,8 @@ dialog .field textarea { min-height: 84px; }
 .js .hero-copy > :nth-child(3) { animation-delay: .3s; } .js .hero-copy > :nth-child(4) { animation-delay: .42s; }
 .bill-wrap { display: grid; gap: 18px; }
 .bill { transition: transform .25s ease-out; will-change: transform; }
+.bill { display: flex; flex-direction: column; }
+.bill-foot { margin-top: auto; }
 .bill-tabs { display: flex; gap: 8px; justify-content: flex-start; flex-wrap: wrap; }
 .bill-tabs button { font: inherit; font-size: 14px; font-weight: 600; padding: 8px 16px; min-height: 40px; border-radius: 99px; border: 1.5px solid var(--rule); background: var(--card); color: var(--ink-2); cursor: pointer; position: relative; overflow: hidden; transition: color .2s, border-color .2s, background .2s; }
 .bill-tabs button:hover { border-color: var(--ink-2); color: var(--ink); }
